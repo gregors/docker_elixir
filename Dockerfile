@@ -22,6 +22,7 @@ RUN set -xe \
 	&& rm otp-src.tar.gz
 
 run apt-get install -y build-essential
+run apt-get install -y unixodbc-dev
 run apt-get install -y libncurses5-dev
 run apt-get install -y libssl-dev
 run apt-get install -y libwxgtk3.0-gtk3-dev
