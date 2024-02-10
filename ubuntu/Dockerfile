@@ -1,14 +1,14 @@
 FROM ubuntu:22.04
 
 
-ENV OTP_VERSION="26.2.1"
+ENV OTP_VERSION="26.2.2"
 
 run apt-get update
 run apt-get install -y curl
 
 # Download Erlang source files
 ENV OTP_DOWNLOAD_URL="https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz"
-ENV OTP_DOWNLOAD_SHA256="d99eab3af908b41dd4d7df38f0b02a447579326dd6604f641bbe9f2789b5656b"
+ENV OTP_DOWNLOAD_SHA256="93c09aa8814018c23d218ac68b2bcdba188e12086223fbfa08af5cc70edd7ee1"
 
 RUN set -xe \
 	&& curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
@@ -47,12 +47,13 @@ RUN set -xe \
 #CMD ["erl"]
 
 # elixir expects utf8.
-ENV ELIXIR_VERSION="v1.16.0" \
-	LANG=C.UTF-8
+ENV LANG=C.UTF-8
+ENV ELIXIR_VERSION="v1.16.1"
+
+ENV ELIXIR_DOWNLOAD_URL="https://github.com/elixir-lang/elixir/archive/${ELIXIR_VERSION}.tar.gz"
+ENV ELIXIR_DOWNLOAD_SHA256="b9e845458e03d62a24325b8424069e401cc7468e21143ecbca5514724d7cbaa0"
 
 RUN set -xe \
-	&& ELIXIR_DOWNLOAD_URL="https://github.com/elixir-lang/elixir/archive/${ELIXIR_VERSION}.tar.gz" \
-	&& ELIXIR_DOWNLOAD_SHA256="d7fe641e3c85c9774232618d22c880c86c2f31e3508c344ce75d134cd40aea18" \
 	&& curl -fSL -o elixir-src.tar.gz $ELIXIR_DOWNLOAD_URL \
 	&& echo "$ELIXIR_DOWNLOAD_SHA256  elixir-src.tar.gz" | sha256sum -c - \
 	&& mkdir -p /usr/local/src/elixir \

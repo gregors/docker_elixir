@@ -6,7 +6,7 @@
 * https://github.com/erlef/docker-elixir/blob/master/1.16/otp-25/Dockerfile
 
 ## to build
-docker build --progress=plain -t elixir
+docker buildx build --progress=plain -t elixir .
 
 ## to run
 docker run -it --rm elixir
