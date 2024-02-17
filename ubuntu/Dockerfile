@@ -34,7 +34,6 @@ run apt-get install -y libwxgtk3.0-gtk3-dev
 RUN set -xe \
   && ERL_TOP="/usr/src/otp_src_${OTP_VERSION%%@*}" \
 	&& ( cd $ERL_TOP \
-			&& ./otp_build autoconf \
 			&& ./configure \
 			&& make -j$(nproc) \
 			&& make -j$(nproc) docs DOC_TARGETS=chunks \
