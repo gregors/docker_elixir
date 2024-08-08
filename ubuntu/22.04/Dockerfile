@@ -1,14 +1,13 @@
 FROM ubuntu:22.04
 
-
-ENV OTP_VERSION="26.2.2"
+ENV OTP_VERSION="27.0.1"
 
 run apt-get update
 run apt-get install -y curl
 
 # Download Erlang source files
 ENV OTP_DOWNLOAD_URL="https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz"
-ENV OTP_DOWNLOAD_SHA256="93c09aa8814018c23d218ac68b2bcdba188e12086223fbfa08af5cc70edd7ee1"
+ENV OTP_DOWNLOAD_SHA256="47d96bb7044cf44bca886213fa828ef82457a911b7622c453d9b3c615b6f68ab"
 
 RUN set -xe \
 	&& curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
@@ -26,9 +25,6 @@ run apt-get install -y unixodbc-dev
 run apt-get install -y libncurses5-dev
 run apt-get install -y libssl-dev
 run apt-get install -y libwxgtk3.0-gtk3-dev
-# run apt-get install -y xsltproc
-# run apt-get install -y libxml2-utils
-# run apt-get install -y fop
 
 # Build sources and documentation
 RUN set -xe \
@@ -43,14 +39,12 @@ RUN set -xe \
 	&& apt-get purge -y --auto-remove $buildDeps \
 	&& rm -rf $ERL_TOP /var/lib/apt/lists/*
 
-#CMD ["erl"]
-
 # elixir expects utf8.
 ENV LANG=C.UTF-8
-ENV ELIXIR_VERSION="v1.16.1"
+ENV ELIXIR_VERSION="v1.17.2"
 
 ENV ELIXIR_DOWNLOAD_URL="https://github.com/elixir-lang/elixir/archive/${ELIXIR_VERSION}.tar.gz"
-ENV ELIXIR_DOWNLOAD_SHA256="b9e845458e03d62a24325b8424069e401cc7468e21143ecbca5514724d7cbaa0"
+ENV ELIXIR_DOWNLOAD_SHA256="7bb8e6414b77c1707f39f620a2ad54f68d64846d663ec78069536854247fb1ab"
 
 RUN set -xe \
 	&& curl -fSL -o elixir-src.tar.gz $ELIXIR_DOWNLOAD_URL \
